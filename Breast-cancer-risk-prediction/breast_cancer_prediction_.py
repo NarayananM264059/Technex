@@ -15,25 +15,22 @@ import requests
 import streamlit as st
 import joblib
 import numpy as np
+from io import BytesIO
 
 # Define the Streamlit app title
 st.title("Breast Cancer Risk Prediction")
 
-# Download the model from GitHub to a local file
-model_url = "https://github.com/NarayananM264059/Technex/raw/main/Breast-cancer-risk-prediction/data/clf_svc_model.pkl"
-local_model_path = "clf_svc_model.pkl"
-if not os.path.exists(local_model_path):
-    response = requests.get(model_url)
-    with open(local_model_path, "wb") as model_file:
-        model_file.write(response.content)
 
-# Load the machine learning model from the local file
-@st.cache(allow_output_mutation=True)
-def load_model():
-    model = joblib.load(local_model_path)
-    return model
+# Define the GitHub repository URL where your model is stored
+github_model_url = 'https://github.com/NarayananM264059/Technex/raw/eb314a66e8ec1803ea207b6302ca325984ff47c9/Breast-cancer-risk-prediction/data/clf_svc_model.pkl'
 
-model = load_model()
+# Download the model from GitHub
+response = requests.get(github_model_url)
+model_bytes = BytesIO(response.content)
+
+# Load the model
+model = joblib.load(model_bytes)
+
 # Create input components for user interaction
 radius_mean = st.slider("Mean Radius (0-30)", 0.0, 30.0, 15.0)
 texture_mean = st.slider("Mean Texture (0-30)", 0.0, 30.0, 15.0)
