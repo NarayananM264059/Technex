@@ -10,19 +10,16 @@ Deployment - GUI
 """
 
 
-import os
-import requests
 import streamlit as st
-import joblib
 import numpy as np
+# Import the pickle package
+import pickle
 
-# Define the Streamlit app title
-st.title("Breast-cancer-risk-prediction")
-
-
-# Load your saved model during app initialization
-model = joblib.load("Breast-cancer-risk-prediction/clf_svc_model.pkl")
-
+# Load your saved model during app initialization using pickle
+with open("clf_svc_model.pkl", "rb") as model_file:
+    model = pickle.load(model_file)
+# Define the Streamlit app
+st.title("Breast Cancer Risk Prediction")
 # Create input components for user interaction
 radius_mean = st.slider("Mean Radius (0-30)", 0.0, 30.0, 15.0)
 texture_mean = st.slider("Mean Texture (0-30)", 0.0, 30.0, 15.0)
