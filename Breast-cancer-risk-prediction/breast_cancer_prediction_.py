@@ -12,6 +12,7 @@ Deployment - GUI
 
 import streamlit as st
 import numpy as np
+import joblib
 # Import the pickle package
 import pickle
 
