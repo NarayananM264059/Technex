@@ -10,15 +10,31 @@ Deployment - GUI
 """
 
 
+import os
+import requests
 import streamlit as st
 import joblib
 import numpy as np
 
-# Load your saved model during app initialization
-model = joblib.load(r"Breast-cancer-risk-prediction/data/clf_svc_model.pkl")
-
-# Define the Streamlit app
+# Define the Streamlit app title
 st.title("Breast Cancer Risk Prediction")
+
+# Download the model from GitHub to a local file
+model_url = "https://github.com/NarayananM264059/Technex/raw/main/Breast-cancer-risk-prediction/data/clf_svc_model.pkl"
+local_model_path = "clf_svc_model.pkl"
+if not os.path.exists(local_model_path):
+    response = requests.get(model_url)
+    with open(local_model_path, "wb") as model_file:
+        model_file.write(response.content)
+
+# Load the machine learning model from the local file
+@st.cache(allow_output_mutation=True)
+def load_model():
+    # Specify the protocol when loading the model (e.g., protocol 4)
+    model = joblib.load(local_model_path, protocol=4)
+    return model
+
+model = load_model()
 # Create input components for user interaction
 radius_mean = st.slider("Mean Radius (0-30)", 0.0, 30.0, 15.0)
 texture_mean = st.slider("Mean Texture (0-30)", 0.0, 30.0, 15.0)
