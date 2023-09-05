@@ -17,11 +17,11 @@ import joblib
 import numpy as np
 
 # Define the Streamlit app title
-st.title("Breast-cancer-risk-prediction/data/clf_svc_model.pkl")
+st.title("Breast-cancer-risk-prediction")
 
 
 # Load your saved model during app initialization
-model = joblib.load("clf_svc_model.pkl")
+model = joblib.load("Breast-cancer-risk-prediction/clf_svc_model.pkl")
 
 # Create input components for user interaction
 radius_mean = st.slider("Mean Radius (0-30)", 0.0, 30.0, 15.0)
