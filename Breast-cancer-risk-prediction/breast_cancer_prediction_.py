@@ -30,8 +30,7 @@ if not os.path.exists(local_model_path):
 # Load the machine learning model from the local file
 @st.cache(allow_output_mutation=True)
 def load_model():
-    # Specify the protocol when loading the model (e.g., protocol 4)
-    model = joblib.load(local_model_path, protocol=4)
+    model = joblib.load(local_model_path)
     return model
 
 model = load_model()
