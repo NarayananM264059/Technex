@@ -15,21 +15,13 @@ import requests
 import streamlit as st
 import joblib
 import numpy as np
-from io import BytesIO
 
 # Define the Streamlit app title
-st.title("Breast Cancer Risk Prediction")
+st.title("Breast-cancer-risk-prediction/data/clf_svc_model.pkl")
 
 
-# Define the GitHub repository URL where your model is stored
-github_model_url = 'https://github.com/NarayananM264059/Technex/raw/eb314a66e8ec1803ea207b6302ca325984ff47c9/Breast-cancer-risk-prediction/data/clf_svc_model.pkl'
-
-# Download the model from GitHub
-response = requests.get(github_model_url)
-model_bytes = BytesIO(response.content)
-
-# Load the model
-model = joblib.load(model_bytes)
+# Load your saved model during app initialization
+model = joblib.load("clf_svc_model.pkl")
 
 # Create input components for user interaction
 radius_mean = st.slider("Mean Radius (0-30)", 0.0, 30.0, 15.0)
